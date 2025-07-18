@@ -1,0 +1,21 @@
+<!-- src/main/resources/templates/user.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Пользовательская страница</title>
+</head>
+<body>
+<h1>Добро пожаловать, пользователь!</h1>
+
+
+<p>Ваше имя пользователя: <span th:text="${#request.remoteUser}"></span></p>
+
+
+
+
+
+<a th:href="@{/logout}">Выйти</a>
+
+</body>
+</html>
