@@ -6,7 +6,7 @@ import org.example.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findByEmail(String email); // Метод для поиска пользователя по email
+    User findByEmail(String email);
 
 
 }

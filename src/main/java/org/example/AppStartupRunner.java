@@ -1,4 +1,4 @@
-package org.example; // Убедитесь, что это правильный пакет
+package org.example;
 
 import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -43,6 +43,6 @@ public class Role {
 
     @Override
     public String toString() {
-        return name; // Удобный вывод имени роли
+        return name;
     }
 }

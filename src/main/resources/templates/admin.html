@@ -60,7 +60,7 @@
         </tr>
         </tbody>
     </table>
-    <!-- Модальное окно для добавления пользователя -->
+
     <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -71,13 +71,13 @@
                     </button>
                 </div>
 
-                <!-- Форма внутри модального окна -->
+
                 <div class='modal-body'>
                     <form th:action="@{/admin/users/save}" method='post'>
                         <!-- CSRF токен -->
                         <input type='hidden' sec:csrf />
 
-                        <!-- Поля формы -->
+
                         <div class='form-group'>
                             <label for='firstName'>First Name</label>
                             <input type='text' name='firstName' class='form-control' id='firstName' required />
@@ -98,13 +98,13 @@
                             <input type='email' name='email' class='form-control' id='email' required />
                         </div>
 
-                        <!-- Пароль -->
+
                         <div class='form-group'>
                             <label for='password'>Password</label>
                             <input type='password' name='password' class='form-control' id='password' required />
                         </div>
 
-                        <!-- Роли (выбор одной роли) -->
+
                         <div class='form-group'>
                             <label for='roles'>Role</label>
                             <select name="roleId" id="roles" class="form-control" required>
@@ -113,7 +113,7 @@
                             </select>
                         </div>
 
-                        <!-- Кнопка отправки формы -->
+
                         <button type="submit" class="btn btn-primary">Add new user</button>
                     </form>
                 </div>
@@ -122,10 +122,10 @@
     </div>
 </div>
 
-<!-- Скрипты Bootstrap и jQuery для работы модальных окон -->
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Не забудьте в контроллере подготовить список allRoles и передать его в модель -->
+
 
 </body></html>

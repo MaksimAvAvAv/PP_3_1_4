@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    private static final Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class); // Создаем логгер
+    private static final Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
 
     @Autowired
     private RoleRepository roleRepository;
@@ -20,18 +20,17 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> findAll() {
         try {
-            List<Role> roles = roleRepository.findAll(); // Получаем все роли из репозитория
+            List<Role> roles = roleRepository.findAll();
 
             if (roles.isEmpty()) {
-                logger.warn("Нет доступных ролей в базе данных."); // Логируем предупреждение, если роли отсутствуют
-            } else {
-                logger.info("Найдено {} ролей.", roles.size()); // Логируем информацию о количестве найденных ролей
+                logger.warn("Нет доступных ролей в базе данных.");
+                logger.info("Найдено {} ролей.", roles.size());
             }
 
-            return roles; // Возвращаем список ролей
+            return roles;
         } catch (Exception e) {
             logger.error("Ошибка при загрузке ролей из базы данных: {}", e.getMessage());
-            throw e; // Можно выбросить исключение дальше или обработать его по-другому
+            throw e;
         }
     }
 }

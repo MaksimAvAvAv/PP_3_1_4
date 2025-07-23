@@ -26,7 +26,7 @@ public class User implements UserDetails {
     private int age;
 
     @Column(unique = true)
-    private String email; // Используем email вместо username для входа
+    private String email;
 
     private String password;
 
@@ -50,8 +50,6 @@ public class User implements UserDetails {
         this.password= password;
         this.roles= roles;
     }
-
-    // Геттеры и сеттеры для новых полей
 
     public Long getId() {
         return id;
@@ -95,7 +93,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email; // Используем email как логин
+        return email;
     }
 
     @Override

@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.List; // импорт для List
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -65,7 +65,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    // Объявляем публичным метод save()
+
     public void save(User user) {
         userRepository.save(user);
     }
