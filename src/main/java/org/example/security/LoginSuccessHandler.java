@@ -8,22 +8,31 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
+
+    private static final Logger logger = Logger.getLogger(LoginSuccessHandler.class.getName());
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
+        String redirectUrl = determineRedirectUrl(authentication);
+        logger.info("User " + authentication.getName() + " logged in successfully, redirecting to: " + redirectUrl);
+        response.sendRedirect(redirectUrl);
+    }
+
+    private String determineRedirectUrl(Authentication authentication) {
         if (authentication.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            response.sendRedirect("/admin");
+            return "/admin";
         } else if (authentication.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_USER"))) {
-            response.sendRedirect("/user");
+            return "/user";
         } else {
-            response.sendRedirect("/");
+            return "/";
         }
     }
 }

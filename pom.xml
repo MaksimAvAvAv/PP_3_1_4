@@ -17,7 +17,7 @@
     </parent>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>1.8</java.version> <!-- или 16, если вы используете более новую версию -->
     </properties>
 
     <dependencies>
@@ -54,17 +54,15 @@
             <version>8.0.33</version>
         </dependency>
 
+        <!-- Servlet API -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version> <!-- или более новая версия -->
+            <version>4.0.1</version><!-- или более новая версия -->
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+
 
         <!-- Тесты -->
         <dependency>
@@ -84,8 +82,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <!-- Убедитесь, что версия соответствует указанной в properties -->
+                    <source>16</source><!-- Используйте переменную для версии -->
+                    <target>16</target><!-- Используйте переменную для версии -->
                 </configuration>
             </plugin>
 
@@ -95,15 +94,14 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <encoding>UTF-8</encoding>
+                    <encoding>UTF-8</encoding><!-- Убедитесь, что кодировка соответствует вашим требованиям -->
                 </configuration>
             </plugin>
 
             <!-- Spring Boot Maven Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <!--<version></version>-->
+                <artifactId>spring-boot-maven-plugin</artifactId><!-- Версия не обязательна, будет использована версия родительского POM -->
             </plugin>
 
         </plugins>

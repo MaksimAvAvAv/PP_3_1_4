@@ -1,35 +1,33 @@
 package org.example.config;
 
-
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.example.model.User;
+import org.example.repository.UserRepository;
+import org.example.security.LoginSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.example.security.LoginSuccessHandler;
 
 @Configuration
 public class SecurityConfig {
 
+    @Autowired
+    private UserRepository userRepository; // Внедряем репозиторий
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails admin = User.withUsername("admin")
-                .password(passwordEncoder().encode("adminpass"))
-                .authorities("ROLE_ADMIN")
-                .build();
-
-        UserDetails user = User.withUsername("user")
-                .password(passwordEncoder().encode("userpass"))
-                .authorities("ROLE_USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin, user);
+        return username -> {
+            User user = userRepository.findByEmail(username); // Предполагается, что вы ищете пользователя по email
+            if (user == null) {
+                throw new UsernameNotFoundException("User not found: " + username);
+            }
+            return user;
+        };
     }
 
     @Bean
@@ -66,7 +64,6 @@ public class SecurityConfig {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .permitAll();
-
 
         http.authenticationProvider(authProvider);
 

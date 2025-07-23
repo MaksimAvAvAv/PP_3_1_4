@@ -16,8 +16,17 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column
+    private int age;
+
     @Column(unique = true)
-    private String username;
+    private String email; // Используем email вместо username для входа
 
     private String password;
 
@@ -32,12 +41,17 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(Long id, String username, String password, Set<Role> roles) {
+    public User(Long id, String firstName, String lastName, int age, String email, String password, Set<Role> roles) {
         this.id= id;
-        this.username= username;
+        this.firstName= firstName;
+        this.lastName= lastName;
+        this.age= age;
+        this.email= email;
         this.password= password;
         this.roles= roles;
     }
+
+    // Геттеры и сеттеры для новых полей
 
     public Long getId() {
         return id;
@@ -47,12 +61,41 @@ public class User implements UserDetails {
         this.id= id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUsername(String username) {
-        this.username= username;
+    public void setFirstName(String firstName) {
+        this.firstName= firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName= lastName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age= age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email= email;
+    }
+
+    @Override
+    public String getUsername() {
+        return email; // Используем email как логин
     }
 
     @Override
@@ -72,7 +115,7 @@ public class User implements UserDetails {
         this.roles= roles;
     }
 
-
+    // Реализация методов UserDetails
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
