@@ -75,7 +75,7 @@
                 <div class='modal-body'>
                     <form th:action="@{/admin/users/save}" method='post'>
                         <!-- CSRF токен -->
-                        <input type='hidden' sec:csrf />
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
 
                         <div class='form-group'>
@@ -107,8 +107,8 @@
 
                         <div class='form-group'>
                             <label for='roles'>Role</label>
-                            <select name="roleId" id="roles" class="form-control" required>
-                                <option value="" disabled selected>Select role</option>
+                            <select name="roleIds" id="roles" class="form-control" multiple required>
+                                <option value="" disabled>Select roles</option>
                                 <option th:each="role : ${allRoles}" th:value="${role.id}" th:text="${role.name}"></option>
                             </select>
                         </div>
@@ -121,6 +121,8 @@
         </div>
     </div>
 </div>
+</div>
+
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

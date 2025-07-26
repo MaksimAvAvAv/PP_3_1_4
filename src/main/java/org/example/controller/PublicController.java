@@ -18,6 +18,6 @@ public class PublicController {
 
     @GetMapping("/register")
     public String register() {
-        return "add-user";
+        return "addUser";
     }
 }

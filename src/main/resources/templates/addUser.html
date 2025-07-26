@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -35,7 +36,8 @@
 
         <div class="form-group">
             <label for="roles">Роли:</label>
-            <select multiple id="roles" name="roleIds" class="form-control">
+            <select name="roleId" id="roles" class="form-control" required="">
+                <option value="" disabled="" selected="">Выберите роль</option>
                 <option th:each="role : ${allRoles}"
                         th:value="${role.id}"
                         th:text="${role.name}"></option>
