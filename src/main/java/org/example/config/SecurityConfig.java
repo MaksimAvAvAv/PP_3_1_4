@@ -3,7 +3,6 @@ package org.example.config;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.example.model.User;
 import org.example.repository.UserRepository;
-import org.example.security.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,19 +45,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                                   LoginSuccessHandler loginSuccessHandler,
                                                    DaoAuthenticationProvider authProvider) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                .antMatchers("/", "/login", "/register", "/css/**", "/js/**").permitAll()
+                .antMatchers("/", "/register", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .successHandler(loginSuccessHandler)
                 .permitAll()
+                .defaultSuccessUrl("/admin", true)
                 .and()
                 .logout()
                 .logoutUrl("/logout")

@@ -6,7 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -38,6 +40,9 @@ public class User implements UserDetails {
     )
     private Set<Role> roles = new HashSet<>();
 
+    @Transient
+    private List<String> roleNames;
+
     public User() {
     }
 
@@ -49,6 +54,19 @@ public class User implements UserDetails {
         this.email= email;
         this.password= password;
         this.roles= roles;
+        this.roleNames = roles.stream().map(Role::getName).collect(Collectors.toList());
+    }
+
+
+
+    public List<String> getRoleNames() {
+        return roles.stream()
+                .map(Role::getName)
+                .collect(Collectors.toList());
+    }
+
+    public void setRoleNames(List<String> roleNames) {
+        this.roleNames = roleNames;
     }
 
     public Long getId() {
@@ -113,7 +131,7 @@ public class User implements UserDetails {
         this.roles= roles;
     }
 
-    // Реализация методов UserDetails
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

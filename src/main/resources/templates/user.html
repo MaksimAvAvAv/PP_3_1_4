@@ -33,7 +33,7 @@
 <div class="container my-4">
     <h1 class="mb-4">User information-page</h1>
 
-    <!-- Кнопка для добавления нового пользователя -->
+
     <a th:href="@{/admin/users/new}" class="btn btn-primary mb-3">Добавить пользователя</a>
 
     <div class="table-responsive">
@@ -49,7 +49,7 @@
             </tr>
             </thead>
             <tbody>
-            <!-- Отображение списка пользователей -->
+
             <tr th:each="user : ${users}">
                 <td th:text="${user.id}"></td>
                 <td th:text="${user.firstName}"></td>

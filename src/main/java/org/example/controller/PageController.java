@@ -10,7 +10,7 @@ import org.example.service.RoleService;
 import org.example.model.User;
 import org.example.model.Role;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory; // Импортируем логгер
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin")
 public class PageController {
 
-    private static final Logger logger = LoggerFactory.getLogger(PageController.class); // Создаем логгер
+    private static final Logger logger = LoggerFactory.getLogger(PageController.class);
 
     private final UserService userService;
     private final RoleService roleService;
@@ -34,7 +34,7 @@ public class PageController {
     @GetMapping
     public String adminPage(Model model) {
         model.addAttribute("users", userService.findAll());
-        model.addAttribute("allRoles", roleService.findAll()); // Добавляем роли в модель
+        model.addAttribute("allRoles", roleService.findAll());
         return "admin";
     }
 
@@ -63,12 +63,20 @@ public class PageController {
             logger.info("Роль: {}", role.getName());
         }
 
+
+        List<String> userRoles = user.getRoles().stream()
+                .map(Role::getName)
+                .collect(Collectors.toList());
+
+        model.addAttribute("userRoles", userRoles);
+
         return "edit-user";
     }
 
     @PostMapping("/users/update")
     public String updateUser(@ModelAttribute("user") User user,
                              @RequestParam("roleIds") List<Long> roleIds) {
+
         Set<Role> roles = roleIds.stream()
                 .map(roleId -> {
                     Role role = new Role();
@@ -77,6 +85,8 @@ public class PageController {
                 }).collect(Collectors.toSet());
 
         user.setRoles(roles);
+
+
         userService.updateUser(user);
 
         logger.info("Пользователь с ID {} обновлен с ролями: {}", user.getId(), roles.stream().map(Role::getName).collect(Collectors.toList()));
@@ -101,13 +111,9 @@ public class PageController {
         List<Role> roles = roleService.findAll();
         model.addAttribute("allRoles", roles);
 
-
         logger.info("Передано {} ролей в модель для добавления нового пользователя.", roles.size());
-        for (Role role : roles) {
-            logger.info("Роль: {}", role.getName());
-        }
 
-        return "admin"; // Возвращаем на страницу администратора, где будет модальное окно
+        return "add-user";
     }
 
     @PostMapping("/users/save")
@@ -125,15 +131,14 @@ public class PageController {
             user.setRoles(roles);
             logger.info("Новый пользователь сохранен с ролями: {}", roles.stream().map(Role::getName).collect(Collectors.toList()));
 
-            // Сохраняем пользователя
+
             userService.save(user);
 
-            return "redirect:/admin"; // Перенаправляем на страницу администратора после сохранения
+            return "redirect:/admin";
         } else {
             logger.warn("Попытка сохранить пользователя без ролей.");
-            // Обработка случая, когда роли не выбраны (можно добавить сообщение об ошибке)
-            return "redirect:/admin"; // Или перенаправить на страницу с ошибкой
-        }
 
+            return "redirect:/admin";
+        }
     }
 }
