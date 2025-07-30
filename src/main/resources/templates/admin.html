@@ -25,6 +25,7 @@
         <tr>
             <th>ID</th>
             <th>Имя</th>
+            <th>Фамилия</th>
             <th>Возраст</th>
             <th>Email</th>
             <th>Роли</th>
@@ -37,13 +38,12 @@
         <tr th:each="user : ${users}">
             <td th:text="${user.id}">1</td>
             <td th:text="${user.firstName}">Иван</td>
+            <td th:text="${user.lastName}">Иванов</td>
             <td th:text="${user.age}">30</td>
             <td th:text="${user.email}">ivan@example.com</td>
+            <td th:text="${user.roleNames != null ? user.roleNames.toString().replaceAll('\$$|\$$', '') : ''}"></td>
 
-<!--
-            <td>
-                <span th:text="${user.roleNames != null ? user.roleNames.stream().collect(TCollectors.joining(', ')) : ''}"></span>
-            </td>-->
+
 
 
             <td>
@@ -77,13 +77,9 @@
                     </button>
                 </div>
 
-
-
                 <div class='modal-body'>
                     <form th:action="@{/admin/users/save}" method='post'>
-
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
 
                         <div class='form-group'>
                             <label for='firstName'>First Name</label>
@@ -105,13 +101,12 @@
                             <input type='email' name='email' class='form-control' id='email' required />
                         </div>
 
-
                         <div class='form-group'>
                             <label for='password'>Password</label>
                             <input type='password' name='password' class='form-control' id='password' required />
                         </div>
 
-
+                        <!-- Здесь находится выбор ролей -->
                         <div class='form-group'>
                             <label for='roles'>Role</label>
                             <select name="roleIds" id="roles" class="form-control" multiple required>
@@ -120,16 +115,13 @@
                             </select>
                         </div>
 
-                        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                            Add new user
-                        </button>
+                        <!-- Кнопка для отправки формы -->
+                        <button type="submit" class="btn btn-success mb-3">Add new user</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
 
 
 
