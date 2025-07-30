@@ -63,7 +63,6 @@ public class PageController {
             logger.info("Роль: {}", role.getName());
         }
 
-
         List<String> userRoles = user.getRoles().stream()
                 .map(Role::getName)
                 .collect(Collectors.toList());
@@ -86,7 +85,7 @@ public class PageController {
 
         user.setRoles(roles);
 
-
+        // Сохраняем обновленного пользователя
         userService.updateUser(user);
 
         logger.info("Пользователь с ID {} обновлен с ролями: {}", user.getId(), roles.stream().map(Role::getName).collect(Collectors.toList()));
@@ -131,14 +130,13 @@ public class PageController {
             user.setRoles(roles);
             logger.info("Новый пользователь сохранен с ролями: {}", roles.stream().map(Role::getName).collect(Collectors.toList()));
 
-
+            // Сохраняем нового пользователя
             userService.save(user);
 
             return "redirect:/admin";
         } else {
             logger.warn("Попытка сохранить пользователя без ролей.");
-
-            return "redirect:/admin";
+            return "redirect:/admin"; // Можно добавить сообщение об ошибке
         }
     }
 }
