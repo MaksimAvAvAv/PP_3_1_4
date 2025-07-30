@@ -15,7 +15,7 @@
     <h1>Admin panel</h1>
 
 
-    <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#addUserModal">
+    <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
         New User
     </button>
 
@@ -40,27 +40,24 @@
             <td th:text="${user.age}">30</td>
             <td th:text="${user.email}">ivan@example.com</td>
 
-
-           <!-- <td>
-
+<!--
+            <td>
                 <span th:text="${user.roleNames != null ? user.roleNames.stream().collect(TCollectors.joining(', ')) : ''}"></span>
             </td>-->
 
 
             <td>
                 <button type="button" class="btn btn-sm btn-primary"
-                        data-toggle="modal"
-                        data-target="#editUserModal"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editUserModal"
                         th:data-id="${user.id}"
                         th:data-firstname="${user.firstName}"
                         th:data-lastname="${user.lastName}"
                         th:data-age="${user.age}"
                         th:data-email="${user.email}">
-                        <!--th:data-roles="${#lists.join(user.roles, ',')}">-->
                     Редактировать
                 </button>
             </td>
-
             <td>
                 <form th:action="@{/admin/users/delete/{id}(id=${user.id})}" method="post" sec:csrf style="display:inline;">
 
@@ -123,8 +120,9 @@
                             </select>
                         </div>
 
-
-                        <button type="submit" class="btn btn-primary">Add new user</button>
+                        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                            Add new user
+                        </button>
                     </form>
                 </div>
             </div>
