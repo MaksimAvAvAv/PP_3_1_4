@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 public class SecurityConfig {
@@ -45,7 +46,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                                   DaoAuthenticationProvider authProvider) throws Exception {
+                                                   DaoAuthenticationProvider authProvider,
+                                                   AuthenticationSuccessHandler loginSuccessHandler) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
@@ -54,8 +56,8 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .successHandler(loginSuccessHandler)
                 .permitAll()
-                .defaultSuccessUrl("/admin", true)
                 .and()
                 .logout()
                 .logoutUrl("/logout")
@@ -65,5 +67,13 @@ public class SecurityConfig {
         http.authenticationProvider(authProvider);
 
         return http.build();
+    }
+
+
+    public void registerUser(User user) {
+        String encodedPassword = passwordEncoder().encode(user.getPassword());
+        user.setPassword(encodedPassword);
+
+        userRepository.save(user);
     }
 }

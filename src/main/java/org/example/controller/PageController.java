@@ -1,6 +1,7 @@
 package org.example.controller;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -12,12 +13,13 @@ import org.example.model.Role;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/")
 public class PageController {
 
     private static final Logger logger = LoggerFactory.getLogger(PageController.class);
@@ -26,12 +28,15 @@ public class PageController {
     private final RoleService roleService;
 
     @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
     public PageController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
     }
 
-    @GetMapping
+    @GetMapping("/admin")
     public String adminPage(Model model) {
         model.addAttribute("users", userService.findAll());
         model.addAttribute("allRoles", roleService.findAll());
@@ -40,28 +45,29 @@ public class PageController {
 
     @GetMapping("/user")
     public String userPage(Model model, Principal principal) {
-        model.addAttribute("username", principal.getName());
+        User user = userService.findByEmail(principal.getName());
+
+        // Проверяем роль пользователя
+        if (user.getRoles().stream().anyMatch(role -> role.getName().equals("ROLE_ADMIN"))) {
+            return "redirect:/admin";
+        }
+
+        model.addAttribute("users", Collections.singletonList(user));
         return "user";
     }
 
-    @GetMapping("/custom-error")
+    @GetMapping("/admin/custom-error")
     public String customErrorPage() {
         return "error";
     }
 
-    @GetMapping("/users/edit/{id}")
+    @GetMapping("/admin/users/edit/{id}")
     public String editUser(@PathVariable Long id, Model model) {
         User user = userService.findById(id);
         model.addAttribute("user", user);
 
         List<Role> roles = roleService.findAll();
         model.addAttribute("allRoles", roles);
-
-        // Логируем количество ролей и их имена
-        logger.info("Передано {} ролей в модель для редактирования пользователя с ID {}.", roles.size(), id);
-        for (Role role : roles) {
-            logger.info("Роль: {}", role.getName());
-        }
 
         List<String> userRoles = user.getRoles().stream()
                 .map(Role::getName)
@@ -72,9 +78,15 @@ public class PageController {
         return "edit-user";
     }
 
-    @PostMapping("/users/update")
-    public String updateUser(@ModelAttribute("user") User user,
+    @PostMapping("/admin/users/update")
+    public String updateUser(@ModelAttribute("user") User updatedUser,
                              @RequestParam("roleIds") List<Long> roleIds) {
+        User currentUser = userService.findById(updatedUser.getId());
+
+        currentUser.setEmail(updatedUser.getEmail());
+        currentUser.setFirstName(updatedUser.getFirstName());
+        currentUser.setLastName(updatedUser.getLastName());
+        currentUser.setAge(updatedUser.getAge());
 
         Set<Role> roles = roleIds.stream()
                 .map(roleId -> {
@@ -83,17 +95,29 @@ public class PageController {
                     return role;
                 }).collect(Collectors.toSet());
 
-        user.setRoles(roles);
+        currentUser.setRoles(roles);
 
-        // Сохраняем обновленного пользователя
-        userService.updateUser(user);
 
-        logger.info("Пользователь с ID {} обновлен с ролями: {}", user.getId(), roles.stream().map(Role::getName).collect(Collectors.toList()));
+        currentUser.setRolesString(roles.stream()
+                .map(Role::getName)
+                .collect(Collectors.joining(", ")));
+
+        if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
+            String encodedPassword = passwordEncoder.encode(updatedUser.getPassword());
+            currentUser.setPassword(encodedPassword);
+            logger.info("Пароль пользователя с ID {} был обновлен.", currentUser.getId());
+        } else {
+            logger.info("Пароль пользователя с ID {} не был изменен.", currentUser.getId());
+        }
+
+        userService.updateUser(currentUser);
+
+        logger.info("Пользователь с ID {} обновлен с ролями: {}", currentUser.getId(), roles.stream().map(Role::getName).collect(Collectors.toList()));
 
         return "redirect:/admin";
     }
 
-    @PostMapping("/users/delete/{id}")
+    @PostMapping("/admin/users/delete/{id}") // Теперь доступен по /admin/users/delete/{id}
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
 
@@ -102,12 +126,14 @@ public class PageController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/users/new")
+    @GetMapping("/admin/users/new")
     public String showAddUserForm(Model model) {
         User user = new User();
+
         model.addAttribute("user", user);
 
         List<Role> roles = roleService.findAll();
+
         model.addAttribute("allRoles", roles);
 
         logger.info("Передано {} ролей в модель для добавления нового пользователя.", roles.size());
@@ -115,7 +141,7 @@ public class PageController {
         return "add-user";
     }
 
-    @PostMapping("/users/save")
+    @PostMapping("/admin/users/save")
     public String saveUser(@ModelAttribute("user") User user,
                            @RequestParam(value = "roleIds", required = false) List<Long> roleIds) {
 
@@ -128,15 +154,23 @@ public class PageController {
                     }).collect(Collectors.toSet());
 
             user.setRoles(roles);
+
+
+            user.setRolesString(roles.stream()
+                    .map(Role::getName)
+                    .collect(Collectors.joining(", ")));
+
+            String encodedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encodedPassword);
+
             logger.info("Новый пользователь сохранен с ролями: {}", roles.stream().map(Role::getName).collect(Collectors.toList()));
 
-            // Сохраняем нового пользователя
             userService.save(user);
 
             return "redirect:/admin";
         } else {
             logger.warn("Попытка сохранить пользователя без ролей.");
-            return "redirect:/admin"; // Можно добавить сообщение об ошибке
+            return "redirect:/admin";
         }
     }
 }

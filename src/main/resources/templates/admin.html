@@ -15,9 +15,18 @@
     <h1>Admin panel</h1>
 
 
-    <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
-        New User
-    </button>
+
+        <div class="d-flex justify-content-between mb-3">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                New User
+            </button>
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        </div>
+
+
+
 
 
     <table class="table table-striped">
@@ -67,6 +76,8 @@
         </tr>
         </tbody>
     </table>
+
+
     <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -106,7 +117,7 @@
                             <input type='password' name='password' class='form-control' id='password' required />
                         </div>
 
-                        <!-- Здесь находится выбор ролей -->
+
                         <div class='form-group'>
                             <label for='roles'>Role</label>
                             <select name="roleIds" id="roles" class="form-control" multiple required>
@@ -115,7 +126,7 @@
                             </select>
                         </div>
 
-                        <!-- Кнопка для отправки формы -->
+
                         <button type="submit" class="btn btn-success mb-3">Add new user</button>
                     </form>
                 </div>

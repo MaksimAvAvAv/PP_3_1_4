@@ -33,12 +33,7 @@ public class UserService {
             admin.setEmail("admin@example.com");
             admin.setPassword(passwordEncoder.encode("12345"));
 
-            Role adminRole = roleRepository.findByName("ROLE_ADMIN");
-            if (adminRole == null) {
-                adminRole = new Role();
-                adminRole.setName("ROLE_ADMIN");
-                roleRepository.save(adminRole);
-            }
+            Role adminRole = getOrCreateRole("ROLE_ADMIN");
 
             HashSet<Role> roles = new HashSet<>();
             roles.add(adminRole);
@@ -48,9 +43,18 @@ public class UserService {
         }
     }
 
+    private Role getOrCreateRole(String roleName) {
+        Role role = roleRepository.findByName(roleName);
+        if (role == null) {
+            role = new Role();
+            role.setName(roleName);
+            roleRepository.save(role);
+        }
+        return role;
+    }
+
     public User findById(Long id) {
-        Optional<User> userOptional = userRepository.findById(id);
-        return userOptional.orElse(null);
+        return userRepository.findById(id).orElse(null);
     }
 
     public void updateUser(User user) {
@@ -65,8 +69,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
-
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

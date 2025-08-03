@@ -40,6 +40,10 @@ public class User implements UserDetails {
     )
     private Set<Role> roles = new HashSet<>();
 
+
+    @Column(name = "roles_string")
+    private String rolesString;
+
     @Transient
     private List<String> roleNames;
 
@@ -54,10 +58,18 @@ public class User implements UserDetails {
         this.email= email;
         this.password= password;
         this.roles= roles;
+        this.rolesString = roles.stream().map(Role::getName).collect(Collectors.joining(", "));
         this.roleNames = roles.stream().map(Role::getName).collect(Collectors.toList());
     }
 
+    public String getRolesString() {
+        return rolesString;
+    }
 
+
+    public void setRolesString(String rolesString) {
+        this.rolesString = rolesString;
+    }
 
     public List<String> getRoleNames() {
         return roles.stream()
@@ -129,9 +141,12 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles= roles;
+
+
+        this.rolesString = roles.stream()
+                .map(Role::getName)
+                .collect(Collectors.joining(", "));
     }
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
