@@ -52,7 +52,7 @@ public class PageController {
         }
 
         model.addAttribute("user", user);
-        return "user"; // Название вашего шаблона
+        return "user";
     }
 
     @GetMapping("/admin/custom-error")
@@ -116,7 +116,7 @@ public class PageController {
         return "redirect:/admin";
     }
 
-    @PostMapping("/admin/users/delete/{id}") // Теперь доступен по /admin/users/delete/{id}
+    @PostMapping("/admin/users/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
 

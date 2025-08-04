@@ -55,7 +55,7 @@
                 <td th:text="${user.age}"></td>
                 <td th:text="${user.email}"></td>
                 <td>
-                    <!-- Обновленный блок для отображения ролей -->
+
                     <span th:each="role : ${user.roles}" th:text="${role.name}"></span>
                     <span th:if="${#lists.size(user.roles) == 0}">Нет роли</span>
                 </td>

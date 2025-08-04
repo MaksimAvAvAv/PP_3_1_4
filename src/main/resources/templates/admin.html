@@ -14,20 +14,15 @@
 <div class="container mt-4">
     <h1>Admin panel</h1>
 
+    <nav class="navbar bg-dark justify-content-end px-3">
+        <a class="nav-link text-white" th:href="@{/logout}">Logout</a>
+    </nav>
 
-
-        <div class="d-flex justify-content-between mb-3">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                New User
-            </button>
-            <form th:action="@{/logout}" method="post" style="display:inline;">
-                <button type="submit" class="btn btn-danger">Logout</button>
-            </form>
-        </div>
-
-
-
-
+    <div class="d-flex justify-content-between mb-3">
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUserModal">
+            New User
+        </button>
+    </div>
 
     <table class="table table-striped">
         <thead>
@@ -135,6 +130,54 @@
     </div>
 
 
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteUserModalLabel">Delete User</h5>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                    </button>
+                </div>
+                <div class='modal-body'>
+                    <p>Are you sure you want to delete this user?</p>
+                    <form id="deleteUserForm" method='post'>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <input type="hidden" name="userId" id="userId"/>
+                        <div class='form-group'>
+                            <label for='userId'>ID</label>
+                            <input type='text' class='form-control' id='userIdDisplay' readonly />
+                        </div>
+                        <div class='form-group'>
+                            <label for='firstName'>First Name</label>
+                            <input type='text' class='form-control' id='firstNameDisplay' readonly />
+                        </div>
+                        <div class='form-group'>
+                            <label for='lastName'>Last Name</label>
+                            <input type='text' class='form-control' id='lastNameDisplay' readonly />
+                        </div>
+                        <div class='form-group'>
+                            <label for='age'>Age</label>
+                            <input type='number' class='form-control' id='ageDisplay' readonly />
+                        </div>
+                        <div class='form-group'>
+                            <label for='email'>Email</label>
+                            <input type='email' class='form-control' id='emailDisplay' readonly />
+                        </div>
+                        <div class='form-group'>
+                            <label for='roles'>Role</label>
+                            <input type='text' class='form-control' id='rolesDisplay' readonly />
+                        </div>
+
+
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
 <div class='modal fade' id='editUserModal' tabindex='-1' role='dialog' aria-labelledby='editUserModalLabel' aria-hidden='true'>
@@ -198,12 +241,34 @@
 
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
 
+    $(document).on('click', '.btn-danger', function() {
 
+        var userId = $(this).closest('tr').find('td:nth-child(1)').text();
+        var firstName = $(this).closest('tr').find('td:nth-child(2)').text();
+        var lastName = $(this).closest('tr').find('td:nth-child(3)').text();
+        var age = $(this).closest('tr').find('td:nth-child(4)').text();
+        var email = $(this).closest('tr').find('td:nth-child(5)').text();
+        var roles = $(this).closest('tr').find('td:nth-child(6)').text();
+
+
+        $('#userIdDisplay').val(userId);
+        $('#firstNameDisplay').val(firstName);
+        $('#lastNameDisplay').val(lastName);
+        $('#ageDisplay').val(age);
+        $('#emailDisplay').val(email);
+        $('#rolesDisplay').val(roles);
+
+
+        $('#deleteUserForm').attr('action', '/admin/users/delete/' + userId);
+
+
+        $('#deleteUserModal').modal('show');
+    });
 
     $('#editUserModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
@@ -214,7 +279,6 @@
         var email = button.data('email');
         var roles = button.data('roles');
 
-
         var modal = $(this);
         modal.find('#editUserId').val(id);
         modal.find('#editFirstName').val(firstName);
@@ -222,11 +286,8 @@
         modal.find('#editAge').val(age);
         modal.find('#editEmail').val(email);
 
-
         if (roles) {
             modal.find('#editRoles').val(roles);
         }
     });
 </script>
-
-</body></html>
