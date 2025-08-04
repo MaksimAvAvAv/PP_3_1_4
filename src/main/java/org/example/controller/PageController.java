@@ -47,13 +47,12 @@ public class PageController {
     public String userPage(Model model, Principal principal) {
         User user = userService.findByEmail(principal.getName());
 
-        // Проверяем роль пользователя
         if (user.getRoles().stream().anyMatch(role -> role.getName().equals("ROLE_ADMIN"))) {
             return "redirect:/admin";
         }
 
-        model.addAttribute("users", Collections.singletonList(user));
-        return "user";
+        model.addAttribute("user", user);
+        return "user"; // Название вашего шаблона
     }
 
     @GetMapping("/admin/custom-error")
