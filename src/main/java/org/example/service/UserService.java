@@ -7,11 +7,14 @@ import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
+@Transactional
 public class UserService {
 
     @Autowired
@@ -33,9 +36,11 @@ public class UserService {
             admin.setPassword(passwordEncoder.encode("12345"));
 
             Role adminRole = getOrCreateRole("ROLE_ADMIN");
+            Role userRole = getOrCreateRole("ROLE_USER");
 
-            HashSet<Role> roles = new HashSet<>();
+            Set<Role> roles = new HashSet<>();
             roles.add(adminRole);
+            roles.add(userRole);
             admin.setRoles(roles);
 
             userRepository.save(admin);
@@ -45,8 +50,7 @@ public class UserService {
     private Role getOrCreateRole(String roleName) {
         Role role = roleRepository.findByName(roleName);
         if (role == null) {
-            role = new Role();
-            role.setName(roleName);
+            role = new Role(roleName);
             roleRepository.save(role);
         }
         return role;
@@ -56,8 +60,8 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public void updateUser(User user) {
-        userRepository.save(user);
+    public User updateUser(User user) {
+        return userRepository.save(user);
     }
 
     public void deleteUserById(Long id) {
@@ -68,11 +72,24 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void save(User user) {
-        userRepository.save(user);
+    public User save(User user) {
+        // Автоматически шифруем пароль при сохранении
+        if (user.getPassword() != null && !user.getPassword().startsWith("$2a$")) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        return userRepository.save(user);
     }
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    // Новые методы для REST API
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public List<User> findByRole(String roleName) {
+        return userRepository.findByRoleName(roleName);
     }
 }

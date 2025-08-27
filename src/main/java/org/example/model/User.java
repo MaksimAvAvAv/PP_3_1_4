@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -40,53 +39,30 @@ public class User implements UserDetails {
     )
     private Set<Role> roles = new HashSet<>();
 
-
     @Column(name = "roles_string")
     private String rolesString;
 
-    @Transient
-    private List<String> roleNames;
-
+    // Конструкторы
     public User() {
     }
 
     public User(Long id, String firstName, String lastName, int age, String email, String password, Set<Role> roles) {
-        this.id= id;
-        this.firstName= firstName;
-        this.lastName= lastName;
-        this.age= age;
-        this.email= email;
-        this.password= password;
-        this.roles= roles;
-        this.rolesString = roles.stream().map(Role::getName).collect(Collectors.joining(", "));
-        this.roleNames = roles.stream().map(Role::getName).collect(Collectors.toList());
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+        this.setRoles(roles); // Используем сеттер для consistency
     }
 
-    public String getRolesString() {
-        return rolesString;
-    }
-
-
-    public void setRolesString(String rolesString) {
-        this.rolesString = rolesString;
-    }
-
-    public List<String> getRoleNames() {
-        return roles.stream()
-                .map(Role::getName)
-                .collect(Collectors.toList());
-    }
-
-    public void setRoleNames(List<String> roleNames) {
-        this.roleNames = roleNames;
-    }
-
+    // Геттеры и сеттеры
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
-        this.id= id;
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -94,7 +70,7 @@ public class User implements UserDetails {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName= firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -102,7 +78,7 @@ public class User implements UserDetails {
     }
 
     public void setLastName(String lastName) {
-        this.lastName= lastName;
+        this.lastName = lastName;
     }
 
     public int getAge() {
@@ -110,7 +86,7 @@ public class User implements UserDetails {
     }
 
     public void setAge(int age) {
-        this.age= age;
+        this.age = age;
     }
 
     public String getEmail() {
@@ -118,7 +94,7 @@ public class User implements UserDetails {
     }
 
     public void setEmail(String email) {
-        this.email= email;
+        this.email = email;
     }
 
     @Override
@@ -132,7 +108,7 @@ public class User implements UserDetails {
     }
 
     public void setPassword(String password) {
-        this.password= password;
+        this.password = password;
     }
 
     public Set<Role> getRoles() {
@@ -140,30 +116,81 @@ public class User implements UserDetails {
     }
 
     public void setRoles(Set<Role> roles) {
-        this.roles= roles;
-
-
-        this.rolesString = roles.stream()
-                .map(Role::getName)
-                .collect(Collectors.joining(", "));
+        this.roles = roles;
+        // Автоматически обновляем строковое представление ролей
+        if (roles != null && !roles.isEmpty()) {
+            this.rolesString = roles.stream()
+                    .map(Role::getName)
+                    .collect(Collectors.joining(", "));
+        } else {
+            this.rolesString = "";
+        }
     }
 
+    public String getRolesString() {
+        return rolesString;
+    }
+
+    public void setRolesString(String rolesString) {
+        this.rolesString = rolesString;
+    }
+
+    // Метод для удобного получения имен ролей (без аннотации @Transient)
+    public java.util.List<String> getRoleNames() {
+        return roles.stream()
+                .map(Role::getName)
+                .collect(Collectors.toList());
+    }
+
+    // UserDetails methods
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
-                .map(role -> (GrantedAuthority) () -> role.getName())
-                .toList();
+                .map(role -> (GrantedAuthority) role::getName)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public boolean isAccountNonExpired() { return true; }
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
     @Override
-    public boolean isAccountNonLocked() { return true; }
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
     @Override
-    public boolean isCredentialsNonExpired() { return true; }
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
     @Override
-    public boolean isEnabled() { return true; }
+    public boolean isEnabled() {
+        return true;
+    }
+
+    // Важные методы для корректной работы
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id != null && id.equals(user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

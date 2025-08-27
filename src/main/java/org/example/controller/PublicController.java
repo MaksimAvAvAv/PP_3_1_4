@@ -11,13 +11,13 @@ public class PublicController {
         return "index";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin";
     }
 
-    @GetMapping("/register")
-    public String register() {
-        return "addUser";
+    @GetMapping("/user")
+    public String user() {
+        return "user";
     }
 }
