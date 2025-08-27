@@ -42,7 +42,7 @@ public class User implements UserDetails {
     @Column(name = "roles_string")
     private String rolesString;
 
-    // Конструкторы
+
     public User() {
     }
 
@@ -53,10 +53,10 @@ public class User implements UserDetails {
         this.age = age;
         this.email = email;
         this.password = password;
-        this.setRoles(roles); // Используем сеттер для consistency
+        this.setRoles(roles);
     }
 
-    // Геттеры и сеттеры
+
     public Long getId() {
         return id;
     }
@@ -117,7 +117,7 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-        // Автоматически обновляем строковое представление ролей
+
         if (roles != null && !roles.isEmpty()) {
             this.rolesString = roles.stream()
                     .map(Role::getName)
@@ -135,14 +135,13 @@ public class User implements UserDetails {
         this.rolesString = rolesString;
     }
 
-    // Метод для удобного получения имен ролей (без аннотации @Transient)
     public java.util.List<String> getRoleNames() {
         return roles.stream()
                 .map(Role::getName)
                 .collect(Collectors.toList());
     }
 
-    // UserDetails methods
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
@@ -170,7 +169,7 @@ public class User implements UserDetails {
         return true;
     }
 
-    // Важные методы для корректной работы
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

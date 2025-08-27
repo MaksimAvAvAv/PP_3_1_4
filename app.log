@@ -33035,3 +33035,243 @@ org.thymeleaf.exceptions.TemplateInputException: Error resolving template [login
 2025-08-27 16:32:23 - Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-08-27 16:32:23 - HikariPool-1 - Shutdown initiated...
 2025-08-27 16:32:23 - HikariPool-1 - Shutdown completed.
+2025-08-27 16:47:08 - Starting Application using Java 23.0.1 on MaksimAvAvAv with PID 26640 (C:\Users\shyta\IdeaProjects\PP_3_1_4\target\classes started by shyta in C:\Users\shyta\IdeaProjects\PP_3_1_4)
+2025-08-27 16:47:08 - No active profile set, falling back to 1 default profile: "default"
+2025-08-27 16:47:08 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-27 16:47:08 - Finished Spring Data repository scanning in 82 ms. Found 2 JPA repository interfaces.
+2025-08-27 16:47:09 - Tomcat initialized with port(s): 8080 (http)
+2025-08-27 16:47:09 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-08-27 16:47:09 - Starting service [Tomcat]
+2025-08-27 16:47:09 - Starting Servlet engine: [Apache Tomcat/9.0.76]
+2025-08-27 16:47:09 - Initializing Spring embedded WebApplicationContext
+2025-08-27 16:47:09 - Root WebApplicationContext: initialization completed in 1779 ms
+2025-08-27 16:47:10 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-27 16:47:10 - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-08-27 16:47:10 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-08-27 16:47:10 - HikariPool-1 - Starting...
+2025-08-27 16:47:11 - HikariPool-1 - Start completed.
+2025-08-27 16:47:11 - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-08-27 16:47:12 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-08-27 16:47:12 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27 16:47:12 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6d6d81c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7c59cf66, org.springframework.security.web.context.SecurityContextPersistenceFilter@426a4301, org.springframework.security.web.header.HeaderWriterFilter@7d4135c9, org.springframework.web.filter.CorsFilter@6bb71265, org.springframework.security.web.csrf.CsrfFilter@3d5e0bf0, org.springframework.security.web.authentication.logout.LogoutFilter@5c8d631, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@16602333, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@47224d5d, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@37816ea6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@537a8915, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@31aa9b01, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7a74672, org.springframework.security.web.session.SessionManagementFilter@7bb86ac, org.springframework.security.web.access.ExceptionTranslationFilter@43b3b1b0, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@31e9d94f]
+2025-08-27 16:47:12 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-27 16:47:12 - Adding welcome page template: index
+2025-08-27 16:47:13 - Starting ProtocolHandler ["http-nio-8080"]
+2025-08-27 16:47:13 - Tomcat started on port(s): 8080 (http) with context path ''
+2025-08-27 16:47:13 - Started Application in 5.621 seconds (JVM running for 6.365)
+2025-08-27 16:47:17 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-27 16:47:17 - Initializing Servlet 'dispatcherServlet'
+2025-08-27 16:47:18 - Completed initialization in 2 ms
+2025-08-27 16:55:11 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27 16:55:11 - HikariPool-1 - Shutdown initiated...
+2025-08-27 16:55:11 - HikariPool-1 - Shutdown completed.
+2025-08-27 16:55:20 - Starting Application using Java 23.0.1 on MaksimAvAvAv with PID 1164 (C:\Users\shyta\IdeaProjects\PP_3_1_4\target\classes started by shyta in C:\Users\shyta\IdeaProjects\PP_3_1_4)
+2025-08-27 16:55:20 - No active profile set, falling back to 1 default profile: "default"
+2025-08-27 16:55:21 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-27 16:55:21 - Finished Spring Data repository scanning in 50 ms. Found 2 JPA repository interfaces.
+2025-08-27 16:55:22 - Tomcat initialized with port(s): 8080 (http)
+2025-08-27 16:55:22 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-08-27 16:55:22 - Starting service [Tomcat]
+2025-08-27 16:55:22 - Starting Servlet engine: [Apache Tomcat/9.0.76]
+2025-08-27 16:55:22 - Initializing Spring embedded WebApplicationContext
+2025-08-27 16:55:22 - Root WebApplicationContext: initialization completed in 1722 ms
+2025-08-27 16:55:22 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-27 16:55:22 - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-08-27 16:55:23 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-08-27 16:55:23 - HikariPool-1 - Starting...
+2025-08-27 16:55:23 - HikariPool-1 - Start completed.
+2025-08-27 16:55:23 - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-08-27 16:55:24 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-08-27 16:55:24 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27 16:55:25 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'securityFilterChain' defined in class path resource [org/example/config/SecurityConfig.class]: Unsatisfied dependency expressed through method 'securityFilterChain' parameter 2; nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'org.springframework.security.web.authentication.AuthenticationSuccessHandler' available: expected single matching bean but found 2: loginSuccessHandler,customAuthenticationSuccessHandler
+2025-08-27 16:55:25 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27 16:55:25 - HikariPool-1 - Shutdown initiated...
+2025-08-27 16:55:25 - HikariPool-1 - Shutdown completed.
+2025-08-27 16:55:25 - Stopping service [Tomcat]
+2025-08-27 16:55:25 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2025-08-27 16:55:25 - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 2 of method securityFilterChain in org.example.config.SecurityConfig required a single bean, but 2 were found:
+	- loginSuccessHandler: defined in file [C:\Users\shyta\IdeaProjects\PP_3_1_4\target\classes\org\example\security\LoginSuccessHandler.class]
+	- customAuthenticationSuccessHandler: defined by method 'customAuthenticationSuccessHandler' in class path resource [org/example/config/SecurityConfig.class]
+
+
+Action:
+
+Consider marking one of the beans as @Primary, updating the consumer to accept multiple beans, or using @Qualifier to identify the bean that should be consumed
+
+2025-08-27 16:56:04 - Starting Application using Java 23.0.1 on MaksimAvAvAv with PID 18360 (C:\Users\shyta\IdeaProjects\PP_3_1_4\target\classes started by shyta in C:\Users\shyta\IdeaProjects\PP_3_1_4)
+2025-08-27 16:56:04 - No active profile set, falling back to 1 default profile: "default"
+2025-08-27 16:56:04 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-27 16:56:05 - Finished Spring Data repository scanning in 67 ms. Found 2 JPA repository interfaces.
+2025-08-27 16:56:05 - Tomcat initialized with port(s): 8080 (http)
+2025-08-27 16:56:05 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-08-27 16:56:05 - Starting service [Tomcat]
+2025-08-27 16:56:05 - Starting Servlet engine: [Apache Tomcat/9.0.76]
+2025-08-27 16:56:06 - Initializing Spring embedded WebApplicationContext
+2025-08-27 16:56:06 - Root WebApplicationContext: initialization completed in 1758 ms
+2025-08-27 16:56:06 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-27 16:56:06 - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-08-27 16:56:06 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-08-27 16:56:06 - HikariPool-1 - Starting...
+2025-08-27 16:56:07 - HikariPool-1 - Start completed.
+2025-08-27 16:56:07 - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-08-27 16:56:08 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-08-27 16:56:08 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27 16:56:09 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'securityFilterChain' defined in class path resource [org/example/config/SecurityConfig.class]: Unsatisfied dependency expressed through method 'securityFilterChain' parameter 2; nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'org.springframework.security.web.authentication.AuthenticationSuccessHandler' available: expected single matching bean but found 2: loginSuccessHandler,customAuthenticationSuccessHandler
+2025-08-27 16:56:09 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27 16:56:09 - HikariPool-1 - Shutdown initiated...
+2025-08-27 16:56:09 - HikariPool-1 - Shutdown completed.
+2025-08-27 16:56:09 - Stopping service [Tomcat]
+2025-08-27 16:56:09 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2025-08-27 16:56:09 - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 2 of method securityFilterChain in org.example.config.SecurityConfig required a single bean, but 2 were found:
+	- loginSuccessHandler: defined in file [C:\Users\shyta\IdeaProjects\PP_3_1_4\target\classes\org\example\security\LoginSuccessHandler.class]
+	- customAuthenticationSuccessHandler: defined by method 'customAuthenticationSuccessHandler' in class path resource [org/example/config/SecurityConfig.class]
+
+
+Action:
+
+Consider marking one of the beans as @Primary, updating the consumer to accept multiple beans, or using @Qualifier to identify the bean that should be consumed
+
+2025-08-27 16:58:45 - Starting Application using Java 23.0.1 on MaksimAvAvAv with PID 4964 (C:\Users\shyta\IdeaProjects\PP_3_1_4\target\classes started by shyta in C:\Users\shyta\IdeaProjects\PP_3_1_4)
+2025-08-27 16:58:45 - No active profile set, falling back to 1 default profile: "default"
+2025-08-27 16:58:46 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-27 16:58:46 - Finished Spring Data repository scanning in 72 ms. Found 2 JPA repository interfaces.
+2025-08-27 16:58:47 - Tomcat initialized with port(s): 8080 (http)
+2025-08-27 16:58:47 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-08-27 16:58:47 - Starting service [Tomcat]
+2025-08-27 16:58:47 - Starting Servlet engine: [Apache Tomcat/9.0.76]
+2025-08-27 16:58:47 - Initializing Spring embedded WebApplicationContext
+2025-08-27 16:58:47 - Root WebApplicationContext: initialization completed in 1788 ms
+2025-08-27 16:58:47 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-27 16:58:47 - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-08-27 16:58:48 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-08-27 16:58:48 - HikariPool-1 - Starting...
+2025-08-27 16:58:48 - HikariPool-1 - Start completed.
+2025-08-27 16:58:48 - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-08-27 16:58:49 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-08-27 16:58:49 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27 16:58:50 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7a74672, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@35b79b1f, org.springframework.security.web.context.SecurityContextPersistenceFilter@537a8915, org.springframework.security.web.header.HeaderWriterFilter@7bb86ac, org.springframework.web.filter.CorsFilter@664083f6, org.springframework.security.web.csrf.CsrfFilter@53153d5e, org.springframework.security.web.authentication.logout.LogoutFilter@d763b06, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6bb71265, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@68e094c9, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@5a8835c6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2148b47e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@410f1452, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@67216c33, org.springframework.security.web.session.SessionManagementFilter@4724b2c1, org.springframework.security.web.access.ExceptionTranslationFilter@7d4135c9, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@41e76252]
+2025-08-27 16:58:50 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-27 16:58:50 - Adding welcome page template: index
+2025-08-27 16:58:51 - Starting ProtocolHandler ["http-nio-8080"]
+2025-08-27 16:58:51 - Tomcat started on port(s): 8080 (http) with context path ''
+2025-08-27 16:58:51 - Started Application in 5.941 seconds (JVM running for 6.622)
+2025-08-27 16:59:00 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-27 16:59:00 - Initializing Servlet 'dispatcherServlet'
+2025-08-27 16:59:00 - Completed initialization in 0 ms
+2025-08-27 16:59:09 - Found 2 roles
+2025-08-27 16:59:09 - Found 2 users
+2025-08-27 17:07:42 - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m53s688ms70µs600ns).
+2025-08-27 17:16:13 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27 17:16:13 - HikariPool-1 - Shutdown initiated...
+2025-08-27 17:16:13 - HikariPool-1 - Shutdown completed.
+2025-08-27 17:16:26 - Starting Application using Java 23.0.1 on MaksimAvAvAv with PID 25048 (C:\Users\shyta\IdeaProjects\PP_3_1_4\target\classes started by shyta in C:\Users\shyta\IdeaProjects\PP_3_1_4)
+2025-08-27 17:16:26 - No active profile set, falling back to 1 default profile: "default"
+2025-08-27 17:16:27 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-27 17:16:27 - Finished Spring Data repository scanning in 68 ms. Found 2 JPA repository interfaces.
+2025-08-27 17:16:27 - Tomcat initialized with port(s): 8080 (http)
+2025-08-27 17:16:27 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-08-27 17:16:27 - Starting service [Tomcat]
+2025-08-27 17:16:27 - Starting Servlet engine: [Apache Tomcat/9.0.76]
+2025-08-27 17:16:28 - Initializing Spring embedded WebApplicationContext
+2025-08-27 17:16:28 - Root WebApplicationContext: initialization completed in 1777 ms
+2025-08-27 17:16:28 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-27 17:16:28 - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-08-27 17:16:28 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-08-27 17:16:28 - HikariPool-1 - Starting...
+2025-08-27 17:16:29 - HikariPool-1 - Start completed.
+2025-08-27 17:16:29 - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-08-27 17:16:30 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-08-27 17:16:30 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27 17:16:31 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5b8599c7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@31e9d94f, org.springframework.security.web.context.SecurityContextPersistenceFilter@48cd8e71, org.springframework.security.web.header.HeaderWriterFilter@32e9c3af, org.springframework.web.filter.CorsFilter@69a3944, org.springframework.security.web.csrf.CsrfFilter@2ea0161f, org.springframework.security.web.authentication.logout.LogoutFilter@6af29394, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@17541204, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@426a4301, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@4987142d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2f6d8c9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7d4135c9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3e3bf77b, org.springframework.security.web.session.SessionManagementFilter@632d1b1b, org.springframework.security.web.access.ExceptionTranslationFilter@62ff14cd, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4889fbba]
+2025-08-27 17:16:31 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-27 17:16:31 - Adding welcome page template: index
+2025-08-27 17:16:31 - Starting ProtocolHandler ["http-nio-8080"]
+2025-08-27 17:16:31 - Tomcat started on port(s): 8080 (http) with context path ''
+2025-08-27 17:16:31 - Started Application in 6.011 seconds (JVM running for 6.77)
+2025-08-27 17:17:14 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-27 17:17:14 - Initializing Servlet 'dispatcherServlet'
+2025-08-27 17:17:14 - Completed initialization in 4 ms
+2025-08-27 17:17:36 - Found 2 roles
+2025-08-27 17:17:36 - Found 2 users
+2025-08-27 17:21:22 - Found 2 roles
+2025-08-27 17:21:22 - Found 2 users
+2025-08-27 17:21:36 - Updating user ID: 52
+2025-08-27 17:21:36 - Updating user ID: 52
+2025-08-27 17:21:36 - Updating user ID: 52
+2025-08-27 17:21:36 - Updating user ID: 52
+2025-08-27 17:29:00 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27 17:29:00 - HikariPool-1 - Shutdown initiated...
+2025-08-27 17:29:00 - HikariPool-1 - Shutdown completed.
+2025-08-27 17:34:46 - Starting Application using Java 23.0.1 on MaksimAvAvAv with PID 27960 (C:\Users\shyta\IdeaProjects\PP_3_1_4\target\classes started by shyta in C:\Users\shyta\IdeaProjects\PP_3_1_4)
+2025-08-27 17:34:46 - No active profile set, falling back to 1 default profile: "default"
+2025-08-27 17:34:47 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-27 17:34:47 - Finished Spring Data repository scanning in 69 ms. Found 2 JPA repository interfaces.
+2025-08-27 17:34:47 - Tomcat initialized with port(s): 8080 (http)
+2025-08-27 17:34:48 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-08-27 17:34:48 - Starting service [Tomcat]
+2025-08-27 17:34:48 - Starting Servlet engine: [Apache Tomcat/9.0.76]
+2025-08-27 17:34:48 - Initializing Spring embedded WebApplicationContext
+2025-08-27 17:34:48 - Root WebApplicationContext: initialization completed in 1849 ms
+2025-08-27 17:34:48 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-27 17:34:48 - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-08-27 17:34:48 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-08-27 17:34:48 - HikariPool-1 - Starting...
+2025-08-27 17:34:49 - HikariPool-1 - Start completed.
+2025-08-27 17:34:49 - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-08-27 17:34:50 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-08-27 17:34:50 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27 17:34:51 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7c59cf66, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6bb71265, org.springframework.security.web.context.SecurityContextPersistenceFilter@4724b2c1, org.springframework.security.web.header.HeaderWriterFilter@2f6d8c9, org.springframework.web.filter.CorsFilter@37816ea6, org.springframework.security.web.csrf.CsrfFilter@24558113, org.springframework.security.web.authentication.logout.LogoutFilter@3d42b756, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@67376bae, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@7e366c6f, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@7a74672, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@193f3306, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@537a8915, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@35b79b1f, org.springframework.security.web.session.SessionManagementFilter@59db8216, org.springframework.security.web.access.ExceptionTranslationFilter@48cd8e71, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@69a3944]
+2025-08-27 17:34:51 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-27 17:34:51 - Adding welcome page template: index
+2025-08-27 17:34:51 - Starting ProtocolHandler ["http-nio-8080"]
+2025-08-27 17:34:51 - Tomcat started on port(s): 8080 (http) with context path ''
+2025-08-27 17:34:51 - Started Application in 5.995 seconds (JVM running for 6.767)
+2025-08-27 17:35:24 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-27 17:35:24 - Initializing Servlet 'dispatcherServlet'
+2025-08-27 17:35:24 - Completed initialization in 16 ms
+2025-08-27 17:35:34 - Found 2 roles
+2025-08-27 17:35:34 - Found 2 users
+2025-08-27 17:35:45 - Updating user ID: 52
+2025-08-27 17:35:45 - User successfully updated: user@example.com
+2025-08-27 17:35:45 - Found 2 users
+2025-08-27 17:36:07 - Found 2 roles
+2025-08-27 17:36:07 - Found 2 users
+2025-08-27 17:36:27 - Creating user: rrrtapoapoproo@mail.ru
+2025-08-27 17:36:27 - User successfully created: rrrtapoapoproo@mail.ru
+2025-08-27 17:36:27 - Found 3 users
+2025-08-27 17:36:40 - Found 2 roles
+2025-08-27 17:36:40 - Found 3 users
+2025-08-27 17:37:07 - Found 2 roles
+2025-08-27 17:37:07 - Found 3 users
+2025-08-27 17:37:11 - User successfully deleted with ID: 53
+2025-08-27 17:37:11 - Found 2 users
+2025-08-27 17:40:25 - Found 2 roles
+2025-08-27 17:40:25 - Found 2 users
+2025-08-27 17:40:58 - Found 2 roles
+2025-08-27 17:40:58 - Found 2 users
+2025-08-27 17:41:30 - Updating user ID: 52
+2025-08-27 17:41:30 - User successfully updated: user@example.com
+2025-08-27 17:41:30 - Found 2 users
+2025-08-27 17:45:21 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-27 17:45:21 - HikariPool-1 - Shutdown initiated...
+2025-08-27 17:45:21 - HikariPool-1 - Shutdown completed.

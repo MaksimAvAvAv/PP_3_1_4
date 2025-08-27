@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface RoleService {
     List<Role> findAll();
-    Optional<Role> findById(Long id); // Правильное объявление метода
+    Optional<Role> findById(Long id);
 }

@@ -27,14 +27,12 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        // Создаем JSON response с информацией о пользователе
         Map<String, Object> responseData = new HashMap<>();
         responseData.put("success", true);
         responseData.put("message", "Login successful");
         responseData.put("username", authentication.getName());
         responseData.put("redirectUrl", determineRedirectUrl(authentication));
 
-        // Добавляем роли пользователя
         responseData.put("roles", authentication.getAuthorities().stream()
                 .map(a -> a.getAuthority())
                 .toArray());

@@ -14,7 +14,6 @@ public class Role {
     @Column(unique = true)
     private String name;
 
-    // Конструкторы
     public Role() {
     }
 
@@ -27,7 +26,6 @@ public class Role {
         this.name = name;
     }
 
-    // Геттеры и сеттеры
     public Long getId() {
         return id;
     }
@@ -44,7 +42,6 @@ public class Role {
         this.name = name;
     }
 
-    // Методы для удобной работы
     @JsonIgnore
     public String getDisplayName() {
         return name.replace("ROLE_", "");

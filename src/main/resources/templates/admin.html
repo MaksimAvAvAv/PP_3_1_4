@@ -21,7 +21,7 @@
         </button>
     </div>
 
-    <!-- Таблица пользователей -->
+
     <div class="table-responsive">
         <table class="table table-striped" id="usersTable">
             <thead>
@@ -36,12 +36,11 @@
             </tr>
             </thead>
             <tbody id="usersTableBody">
-            <!-- Данные будут загружены через JavaScript -->
+
             </tbody>
         </table>
     </div>
 
-    <!-- Модальное окно добавления пользователя -->
     <div class="modal fade" id="addUserModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -79,7 +78,7 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Roles</label>
                                 <select class="form-select" name="roles" id="rolesSelect" multiple required>
-                                    <!-- Роли будут загружены через JavaScript -->
+
                                 </select>
                             </div>
                         </div>
@@ -93,7 +92,7 @@
         </div>
     </div>
 
-    <!-- Модальное окно редактирования пользователя -->
+
     <div class="modal fade" id="editUserModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -132,7 +131,7 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Roles</label>
                                 <select class="form-select" id="editRolesSelect" name="roles" multiple required>
-                                    <!-- Роли будут загружены через JavaScript -->
+
                                 </select>
                             </div>
                         </div>
@@ -155,11 +154,10 @@
         let users = [];
         let roles = [];
 
-        // Загрузка данных при старте
+
         loadUsers();
         loadRoles();
 
-        // Загрузка пользователей
         function loadUsers() {
             fetch('/api/admin/users')
                 .then(response => response.json())
@@ -170,7 +168,6 @@
                 .catch(error => console.error('Error loading users:', error));
         }
 
-        // Загрузка ролей
         function loadRoles() {
             fetch('/api/admin/roles')
                 .then(response => response.json())
@@ -181,7 +178,7 @@
                 .catch(error => console.error('Error loading roles:', error));
         }
 
-        // Рендер таблицы пользователей
+
         function renderUsersTable() {
             const tbody = $('#usersTableBody');
             tbody.empty();
@@ -211,7 +208,7 @@
             });
         }
 
-        // Рендер select с ролями
+
         function renderRolesSelect() {
             const select = $('#rolesSelect, #editRolesSelect');
             select.empty();
@@ -221,7 +218,6 @@
             });
         }
 
-        // Добавление пользователя
         $('#addUserForm').on('submit', function(e) {
             e.preventDefault();
 
@@ -253,7 +249,7 @@
                 .catch(error => console.error('Error adding user:', error));
         });
 
-        // Редактирование пользователя
+
         $(document).on('click', '.edit-btn', function() {
             const userId = $(this).data('user-id');
             const user = users.find(u => u.id === userId);
@@ -265,7 +261,7 @@
                 $('#editAge').val(user.age);
                 $('#editEmail').val(user.email);
 
-                // Устанавливаем выбранные роли
+
                 const roleIds = user.roles.map(role => role.id.toString());
                 $('#editRolesSelect').val(roleIds);
 
@@ -304,7 +300,6 @@
                 .catch(error => console.error('Error updating user:', error));
         });
 
-        // Удаление пользователя
         $(document).on('click', '.delete-btn', function() {
             const userId = $(this).data('user-id');
 
@@ -319,7 +314,7 @@
             }
         });
 
-        // Выход
+
         $('#logoutBtn').on('click', function(e) {
             e.preventDefault();
             fetch('/logout', { method: 'POST' })

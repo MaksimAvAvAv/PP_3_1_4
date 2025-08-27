@@ -1,16 +1,18 @@
 package org.example.config;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -42,34 +44,52 @@ public class SecurityConfig {
     @Bean
     public DaoAuthenticationProvider authProvider(UserDetailsService userDetailsService,
                                                   BCryptPasswordEncoder passwordEncoder) {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder);
-        return authProvider;
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder);
+        return provider;
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true);
+        CorsConfiguration cfg = new CorsConfiguration();
+        cfg.setAllowedOriginPatterns(Arrays.asList("*"));
+        cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        cfg.setAllowedHeaders(Arrays.asList("*"));
+        cfg.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", cfg);
         return source;
     }
 
     @Bean
+    @Primary
+    public AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+        return (request, response, authentication) -> {
+            boolean isAdmin = authentication.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+            boolean isUser  = authentication.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("ROLE_USER"));
+
+            if (isAdmin) {
+                response.sendRedirect("/admin");
+            } else if (isUser) {
+                response.sendRedirect("/user");
+            } else {
+                response.sendRedirect("/login?error");
+            }
+        };
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
-                                                   DaoAuthenticationProvider authProvider) throws Exception {
+                                                   DaoAuthenticationProvider authProvider,
+                                                   AuthenticationSuccessHandler successHandler) throws Exception {
         http
-                .cors().configurationSource(corsConfigurationSource())
-                .and()
-                .csrf().ignoringAntMatchers("/api/**")
-                .and()
-                .authorizeRequests(authz -> authz
+                .cors().and()
+                .csrf().ignoringAntMatchers("/api/**").and()
+                .authorizeRequests(auth -> auth
                         .antMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
                         .antMatchers("/api/user/me").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                         .antMatchers("/", "/admin", "/user").permitAll()
@@ -77,7 +97,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .defaultSuccessUrl("/admin", true)  // ← ТОЛЬКО ЭТО!
+                        .successHandler(successHandler)
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -87,6 +107,7 @@ public class SecurityConfig {
                 );
 
         http.authenticationProvider(authProvider);
+
         return http.build();
     }
 }

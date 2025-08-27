@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import java.security.Principal;
 import java.util.List;
 
@@ -20,7 +19,6 @@ import java.util.List;
 public class UserRestController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
-
     private final UserService userService;
     private final RoleService roleService;
 
@@ -33,7 +31,6 @@ public class UserRestController {
         this.roleService = roleService;
     }
 
-    // Получить всех пользователей
     @GetMapping("/admin/users")
     public ResponseEntity<List<User>> getAllUsers() {
         try {
@@ -46,7 +43,6 @@ public class UserRestController {
         }
     }
 
-    // Получить все роли
     @GetMapping("/admin/roles")
     public ResponseEntity<List<Role>> getAllRoles() {
         try {
@@ -59,7 +55,6 @@ public class UserRestController {
         }
     }
 
-    // Получить текущего пользователя
     @GetMapping("/user/me")
     public ResponseEntity<User> getCurrentUser(Principal principal) {
         try {
@@ -71,7 +66,6 @@ public class UserRestController {
         }
     }
 
-    // Получить пользователя по id
     @GetMapping("/admin/users/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         try {
@@ -83,39 +77,71 @@ public class UserRestController {
         }
     }
 
-    // Обновить пользователя (УПРОЩЕННАЯ ВЕРСИЯ)
     @PutMapping("/admin/users/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
         try {
             logger.info("Updating user ID: {}", id);
-            return ResponseEntity.ok("Update endpoint works");
+            User existingUser = userService.findById(id);
+            if (existingUser == null) {
+                logger.warn("User not found with ID: {}", id);
+                return ResponseEntity.notFound().build();
+            }
+
+            existingUser.setFirstName(updatedUser.getFirstName());
+            existingUser.setLastName(updatedUser.getLastName());
+            existingUser.setEmail(updatedUser.getEmail());
+            existingUser.setAge(updatedUser.getAge());
+
+            if (updatedUser.getPassword() != null && !updatedUser.getPassword().trim().isEmpty()) {
+                existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+                logger.info("Password updated for user ID: {}", id);
+            }
+
+            existingUser.setRoles(updatedUser.getRoles());
+            User savedUser = userService.save(existingUser);
+            logger.info("User successfully updated: {}", savedUser.getEmail());
+
+            return ResponseEntity.ok(savedUser);
         } catch (Exception e) {
-            logger.error("Error in update endpoint", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+            logger.error("Error updating user with ID: {}", id, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error updating user: " + e.getMessage());
         }
     }
 
-    // Удалить пользователя
     @DeleteMapping("/admin/users/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         try {
             userService.deleteUserById(id);
-            return ResponseEntity.ok("User deleted");
+            logger.info("User successfully deleted with ID: {}", id);
+            return ResponseEntity.ok("User deleted successfully");
         } catch (Exception e) {
             logger.error("Error deleting user with ID: {}", id, e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error deleting user: " + e.getMessage());
         }
     }
 
-    // Создать пользователя (УПРОЩЕННАЯ ВЕРСИЯ)
     @PostMapping("/admin/users")
-    public ResponseEntity<String> createUser(@RequestBody User user) {
+    public ResponseEntity<?> createUser(@RequestBody User user) {
         try {
             logger.info("Creating user: {}", user.getEmail());
-            return ResponseEntity.status(HttpStatus.CREATED).body("Create endpoint works");
+            User existingUser = userService.findByEmail(user.getEmail());
+            if (existingUser != null) {
+                logger.warn("User with email {} already exists", user.getEmail());
+                return ResponseEntity.badRequest()
+                        .body("User with email " + user.getEmail() + " already exists");
+            }
+
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            User savedUser = userService.save(user);
+            logger.info("User successfully created: {}", savedUser.getEmail());
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
         } catch (Exception e) {
-            logger.error("Error in create endpoint", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+            logger.error("Error creating user", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error creating user: " + e.getMessage());
         }
     }
 }

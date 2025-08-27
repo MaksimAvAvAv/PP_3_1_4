@@ -73,7 +73,7 @@ public class UserService {
     }
 
     public User save(User user) {
-        // Автоматически шифруем пароль при сохранении
+
         if (user.getPassword() != null && !user.getPassword().startsWith("$2a$")) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
@@ -84,7 +84,6 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    // Новые методы для REST API
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
